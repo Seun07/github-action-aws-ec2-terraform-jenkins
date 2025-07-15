@@ -71,7 +71,13 @@ jobs:
       id: plan
       run: terraform plan -no-color
 
+    - name: Terraform apply
+      id: apply
+      if: ${{ github.event.inputs.terraform_action == 'apply' }}
+      run: terraform apply -auto-approve
+    
     - name: Terraform destroy
       id: destroy
+      if: ${{ github.event.inputs.terraform_action == 'destroy' }}
       run: terraform destroy -auto-approve
       
